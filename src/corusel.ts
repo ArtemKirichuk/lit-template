@@ -1,14 +1,30 @@
 import { LitElement, PropertyValueMap, html } from "lit";
 import { customElement } from "lit/decorators.js"
 import { property, queryAssignedElements } from "lit/decorators.js";
+import { RIGHT, LEFT } from "./constans"
+import "./slide-btn";
 
 @customElement('my-corusel')
 export class Corusel extends LitElement {
     @property({ type: Number }) slideIndex = 0;
     @queryAssignedElements()
+
     private readonly inputSlides!: HTMLElement[];
     override render() {
-        return html`<slot></slot>`
+        return html`
+            <slide-btn
+                @click=${this.changeSlide.bind(this, 1)}
+            >${RIGHT}</slide-btn>
+            <slot></slot>
+            <slide-btn
+                @click=${this.changeSlide.bind(this, -1)}
+            >${LEFT}</slide-btn>
+        `
+    }
+    changeSlide(count: number) {
+        let countSlide = this.inputSlides.length;
+        let calcIndex = this.slideIndex + count;
+        this.slideIndex = (countSlide + (calcIndex % countSlide)) % countSlide
     }
 
     private hide = (slide: HTMLElement) => {

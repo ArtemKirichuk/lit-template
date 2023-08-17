@@ -1,8 +1,10 @@
 import { LitElement, PropertyValueMap } from "lit";
+import "./slide-btn";
 export declare class Corusel extends LitElement {
     slideIndex: number;
     private readonly inputSlides;
     render(): import("lit-html").TemplateResult<1>;
+    changeSlide(count: number): void;
     private hide;
     private show;
     setSlide(): void;

@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { LitElement, html } from "lit";
+import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 let SlideBtn = class SlideBtn extends LitElement {
     constructor() {
@@ -12,9 +12,26 @@ let SlideBtn = class SlideBtn extends LitElement {
         this.count = 0;
     }
     render() {
-        return html `<div><slot></slot></div>`;
+        return html `
+            <div id="btn">
+                <slot></slot>
+            </div>
+        `;
     }
 };
+SlideBtn.styles = css `
+        #btn{
+            border:1px solid;
+            width:2rem;
+            height:2rem;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            cursor:pointer;
+        }
+    `;
 __decorate([
     property({ type: Number })
 ], SlideBtn.prototype, "count", void 0);

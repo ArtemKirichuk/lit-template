@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { property, queryAssignedElements } from "lit/decorators.js";
+import { RIGHT, LEFT } from "./constans";
+import "./slide-btn";
 let Corusel = class Corusel extends LitElement {
     constructor() {
         super(...arguments);
@@ -21,7 +23,20 @@ let Corusel = class Corusel extends LitElement {
         };
     }
     render() {
-        return html `<slot></slot>`;
+        return html `
+            <slide-btn
+                @click=${this.changeSlide.bind(this, 1)}
+            >${RIGHT}</slide-btn>
+            <slot></slot>
+            <slide-btn
+                @click=${this.changeSlide.bind(this, -1)}
+            >${LEFT}</slide-btn>
+        `;
+    }
+    changeSlide(count) {
+        let countSlide = this.inputSlides.length;
+        let calcIndex = this.slideIndex + count;
+        this.slideIndex = (countSlide + (calcIndex % countSlide)) % countSlide;
     }
     setSlide() {
         this.inputSlides.forEach((element, i) => {
